@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import api from 'helpers/api';
+import Button from 'components/Button/Button';
 
 class ImageGallery extends Component {
+  static propTypes = {
+    key: PropTypes.string,
+  };
+
   state = {
     photos: null,
     loading: false,
     page: 1,
+  };
+
+  getPageOnLoadMoreBtnClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -21,6 +33,21 @@ class ImageGallery extends Component {
         this.setState({
           photos: data.hits,
           loading: false,
+          page: 1,
+        });
+      } catch (error) {
+        this.setState({ loading: false });
+        console.log(error.message);
+      }
+    }
+
+    if (prevState.page !== page && page !== 1) {
+      try {
+        this.setState({ loading: true });
+        const data = await api(searchQuery, page);
+        this.setState({
+          photos: [...prevState.photos, ...data.hits],
+          loading: false,
         });
       } catch (error) {
         this.setState({ loading: false });
@@ -30,7 +57,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { loading, photos } = this.state;
+    const { loading, photos, page } = this.state;
     return (
       <>
         {loading && <div>Loading...</div>}
@@ -44,6 +71,9 @@ class ImageGallery extends Component {
               />
             ))}
           </ul>
+        )}
+        {photos?.length > 0 && (
+          <Button onBtnClick={this.getPageOnLoadMoreBtnClick} page={page} />
         )}
       </>
     );
