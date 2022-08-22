@@ -17,6 +17,7 @@ class ImageGallery extends Component {
     photos: null,
     loading: false,
     page: 1,
+    total: null,
   };
 
   getPageOnLoadMoreBtnClick = () => {
@@ -35,6 +36,7 @@ class ImageGallery extends Component {
         const data = await api(searchQuery, page);
         this.setState({
           photos: data.hits,
+          total: data.total,
           page: 1,
         });
       } catch (error) {
@@ -60,7 +62,8 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { loading, photos, page } = this.state;
+    const { loading, photos, page, total } = this.state;
+
     return (
       <>
         {loading && <Loader />}
@@ -71,12 +74,13 @@ class ImageGallery extends Component {
                 key={el.id}
                 url={el.webformatURL}
                 tags={el.tags}
+                largeImage={el.largeImageURL}
               />
             ))}
           </ul>
         )}
         {photos?.length === 0 && <Notification />}
-        {photos?.length >= 12 && (
+        {12 * page <= total && (
           <Button onBtnClick={this.getPageOnLoadMoreBtnClick} page={page} />
         )}
         <Modal />
