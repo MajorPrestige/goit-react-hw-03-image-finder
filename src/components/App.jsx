@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
 import s from './App.module.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import FirstPage from './FirstPage/FirstPage';
 
 export class App extends Component {
   state = {
@@ -17,7 +20,27 @@ export class App extends Component {
 
     return (
       <div className={s.App}>
-        <Searchbar getSearchQuery={this.getSearchQuery} />
+        {!searchQuery && (
+          <FirstPage
+            getSearchQuery={this.getSearchQuery}
+            searchQuery={searchQuery}
+          />
+        )}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          pauseOnHover={false}
+          draggable
+        />
+        {searchQuery && (
+          <Searchbar
+            getSearchQuery={this.getSearchQuery}
+            searchQuery={searchQuery}
+          />
+        )}
         <ImageGallery searchQuery={searchQuery} />
       </div>
     );

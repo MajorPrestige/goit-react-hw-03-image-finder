@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import s from './FirstPage.module.css';
 
-import s from './Searchbar.module.css';
-
-class Searchbar extends Component {
+class FirstPage extends Component {
   static propTypes = {
     getSearchQuery: PropTypes.func,
   };
@@ -31,6 +30,16 @@ class Searchbar extends Component {
     return (
       <>
         <header className={s.Searchbar}>
+          <h1 className={s.title}>
+            <span className={s.i}>I</span>
+            <span className={s.m}>M</span>
+            <span className={s.g}>G</span>
+            <span className={s.o}>o</span>
+            <span className={s.do}>o</span>
+            <span className={s.g}>g</span>
+            <span className={s.l}>l</span>
+            <span className={s.e}>e</span>
+          </h1>
           <form onSubmit={this.handleSubmit} className={s.SearchForm}>
             <button type="submit" className={s.SearchFormButton}>
               <span className={s.SearchFormButtonLabel}>Search</span>
@@ -51,4 +60,4 @@ class Searchbar extends Component {
   }
 }
 
-export default Searchbar;
+export default FirstPage;

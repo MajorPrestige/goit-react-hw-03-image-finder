@@ -1,0 +1,100 @@
+.Searchbar {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  z-index: 1100;
+  max-width: 600px;
+}
+
+.SearchForm {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 30px;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.SearchFormButton {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background-image: url('https://img.icons8.com/metro/52/000000/search.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+}
+
+.SearchFormButton:hover {
+  opacity: 1;
+}
+
+.SearchFormButtonLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+.SearchFormInput {
+  display: inline-block;
+  width: 100%;
+  font: inherit;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.SearchFormInput::placeholder {
+  font: inherit;
+  font-size: 18px;
+}
+
+.title {
+  text-align: center;
+  font-size: 70px;
+}
+
+.g {
+  color: rgb(0, 132, 255);
+}
+
+.o {
+  color: rgb(255, 60, 0);
+}
+
+.e {
+  color: rgb(255, 60, 0);
+}
+
+.l {
+  color: rgb(79, 161, 70);
+}
+
+.do {
+  color: rgb(232, 248, 0);
+}
+
+.m {
+  color: rgb(232, 248, 0);
+}
+
+.i {
+  color: rgb(79, 161, 70);
+}

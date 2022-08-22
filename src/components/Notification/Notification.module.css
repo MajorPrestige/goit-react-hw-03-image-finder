@@ -1,0 +1,12 @@
+.container {
+  padding: 0px 50px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.secondTitle {
+  margin-bottom: 0px;
+}

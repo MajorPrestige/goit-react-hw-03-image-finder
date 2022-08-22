@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import api from 'helpers/api';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import Button from 'components/Button/Button';
+import Loader from 'components/Loader/Loader';
+import Modal from 'components/Modal/Modal';
+import Notification from 'components/Notification/Notification';
 
 class ImageGallery extends Component {
   static propTypes = {
@@ -32,12 +35,12 @@ class ImageGallery extends Component {
         const data = await api(searchQuery, page);
         this.setState({
           photos: data.hits,
-          loading: false,
           page: 1,
         });
       } catch (error) {
-        this.setState({ loading: false });
         console.log(error.message);
+      } finally {
+        this.setState({ loading: false });
       }
     }
 
@@ -47,11 +50,11 @@ class ImageGallery extends Component {
         const data = await api(searchQuery, page);
         this.setState({
           photos: [...prevState.photos, ...data.hits],
-          loading: false,
         });
       } catch (error) {
-        this.setState({ loading: false });
         console.log(error.message);
+      } finally {
+        this.setState({ loading: false });
       }
     }
   }
@@ -60,7 +63,7 @@ class ImageGallery extends Component {
     const { loading, photos, page } = this.state;
     return (
       <>
-        {loading && <div>Loading...</div>}
+        {loading && <Loader />}
         {photos && (
           <ul className={s.ImageGallery}>
             {photos.map(el => (
@@ -72,9 +75,11 @@ class ImageGallery extends Component {
             ))}
           </ul>
         )}
-        {photos?.length > 0 && (
+        {photos?.length === 0 && <Notification />}
+        {photos?.length >= 12 && (
           <Button onBtnClick={this.getPageOnLoadMoreBtnClick} page={page} />
         )}
+        <Modal />
       </>
     );
   }
