@@ -12,7 +12,6 @@ class Modal extends Component {
     if (e.code !== 'Escape') {
       return;
     }
-    console.log(e.code);
     this.props.closeModal(false);
   };
 
