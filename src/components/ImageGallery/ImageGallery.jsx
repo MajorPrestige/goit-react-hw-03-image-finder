@@ -18,6 +18,7 @@ class ImageGallery extends Component {
     loading: false,
     page: 1,
     total: null,
+    targetPhoto: '',
   };
 
   getPageOnLoadMoreBtnClick = () => {
@@ -61,8 +62,12 @@ class ImageGallery extends Component {
     }
   }
 
+  getLargeImage = targetPhoto => {
+    this.setState({ targetPhoto });
+  };
+
   render() {
-    const { loading, photos, page, total } = this.state;
+    const { loading, photos, page, total, targetPhoto } = this.state;
 
     return (
       <>
@@ -75,6 +80,7 @@ class ImageGallery extends Component {
                 url={el.webformatURL}
                 tags={el.tags}
                 largeImage={el.largeImageURL}
+                getLargeImage={this.getLargeImage}
               />
             ))}
           </ul>
@@ -83,7 +89,9 @@ class ImageGallery extends Component {
         {12 * page <= total && (
           <Button onBtnClick={this.getPageOnLoadMoreBtnClick} page={page} />
         )}
-        <Modal />
+        {targetPhoto && (
+          <Modal targetPhoto={targetPhoto} closeModal={this.getLargeImage} />
+        )}
       </>
     );
   }
