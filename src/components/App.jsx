@@ -26,6 +26,7 @@ export class App extends Component {
             searchQuery={searchQuery}
           />
         )}
+
         <ToastContainer
           position="top-right"
           autoClose={3000}
@@ -35,6 +36,7 @@ export class App extends Component {
           pauseOnHover={false}
           draggable
         />
+
         {searchQuery && (
           <Searchbar
             getSearchQuery={this.getSearchQuery}

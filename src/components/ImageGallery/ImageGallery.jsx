@@ -21,12 +21,6 @@ class ImageGallery extends Component {
     targetPhoto: '',
   };
 
-  getPageOnLoadMoreBtnClick = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
-  };
-
   async componentDidUpdate(prevProps, prevState) {
     const { page } = this.state;
     const { searchQuery } = this.props;
@@ -64,6 +58,12 @@ class ImageGallery extends Component {
 
   getLargeImage = targetPhoto => {
     this.setState({ targetPhoto });
+  };
+
+  getPageOnLoadMoreBtnClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   render() {
